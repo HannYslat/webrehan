@@ -1,318 +1,715 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curriculum Vitae - Indra Febri Suseno</title>
-
+    <title>Portofolio Pelajar SMK</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Cormorant Garamond for elegant accents -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brown: {
+                            50: '#fdfbf7',
+                            100: '#f6ede2',
+                            200: '#e8d5c0',
+                            300: '#d7b796',
+                            400: '#c4956a',
+                            500: '#ab7645',
+                            600: '#8c5a31',
+                            700: '#6f4323',
+                            800: '#57331c',
+                            900: '#3d2212',
+                        },
+                        dark: {
+                            900: '#121110',
+                            800: '#1c1a18',
+                            700: '#2a2725',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(215, 183, 150, 0.25);
+        }
+        .bg-warm-pattern {
+            background-color: #fdfbf7;
+            background-image: radial-gradient(#e8d5c0 0.75px, transparent 0.75px);
+            background-size: 24px 24px;
+        }
+        #mobileMenu {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(-10px);
+            transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #mobileMenu.active {
+            max-height: 420px;
+            opacity: 1;
+            transform: translateY(0);
+            padding-top: 0.75rem;
+            padding-bottom: 1.5rem;
         }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f2f2f2;
-            color: #222;
-            line-height: 1.5;
+        /* Staggered entrance animation for links inside mobile menu */
+        #mobileMenu .menu-item {
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
         }
-
-        .cv-container {
-            width: 800px;
-            max-width: 95%;
-            margin: 30px auto;
-            background: white;
-            padding: 40px 50px;
-            border: 1px solid #222;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        #mobileMenu.active .menu-item {
+            opacity: 1;
+            transform: translateY(0);
         }
+        #mobileMenu.active .menu-item:nth-child(1) { transition-delay: 0.06s; }
+        #mobileMenu.active .menu-item:nth-child(2) { transition-delay: 0.11s; }
+        #mobileMenu.active .menu-item:nth-child(3) { transition-delay: 0.16s; }
+        #mobileMenu.active .menu-item:nth-child(4) { transition-delay: 0.21s; }
+        #mobileMenu.active .menu-item:nth-child(5) { transition-delay: 0.26s; }
+        #mobileMenu.active .menu-item:nth-child(6) { transition-delay: 0.31s; }
 
-        /* HEADER */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
+        /* Smooth spring-like icon transition */
+        #menuIcon {
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-
-        .header h1 {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .profile-photo {
-            width: 140px;
-            height: 175px;
-            object-fit: cover;
-            border: 1px solid #222;
-        }
-
-        /* SECTION */
-        .section {
-            margin-top: 20px;
-        }
-
-        .section-title {
-            font-size: 22px;
-            font-weight: bold;
-            text-decoration: underline;
-            margin-bottom: 7px;
-            text-transform: uppercase;
-        }
-
-        .line {
-            height: 2px;
-            background: #222;
-            margin-bottom: 12px;
-        }
-
-        /* DATA */
-        .data {
-            display: grid;
-            grid-template-columns: 150px 15px 1fr;
-            font-size: 15px;
-            margin-bottom: 4px;
-        }
-
-        .label {
-            font-weight: normal;
-        }
-
-        .colon {
-            text-align: center;
-        }
-
-        /* EDUCATION */
-        .education {
-            display: grid;
-            grid-template-columns: 150px 15px 1fr;
-            font-size: 15px;
-            margin-bottom: 5px;
-        }
-
-        /* SKILLS */
-        .skills {
-            display: grid;
-            grid-template-columns: 150px 15px 1fr;
-            font-size: 15px;
-            margin-bottom: 5px;
-        }
-
-        /* EXPERIENCE */
-        .experience {
-            font-size: 15px;
-        }
-
-        /* FOOTER */
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 12px;
-            color: #777;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 600px) {
-            .cv-container {
-                padding: 25px;
-                margin: 10px auto;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .header h1 {
-                font-size: 26px;
-            }
-
-            .profile-photo {
-                width: 120px;
-                height: 150px;
-            }
-
-            .data,
-            .education,
-            .skills {
-                grid-template-columns: 110px 10px 1fr;
-                font-size: 13px;
-            }
-
-            .section-title {
-                font-size: 18px;
-            }
-        }
-
-        @media print {
-            body {
-                background: white;
-            }
-
-            .cv-container {
-                width: 100%;
-                max-width: 100%;
-                margin: 0;
-                box-shadow: none;
-            }
+        .icon-rotated {
+            transform: rotate(180deg) scale(1.1);
         }
     </style>
 </head>
+<body class="bg-warm-pattern text-dark-900 font-sans selection:bg-brown-200 selection:text-brown-900">
 
-<body>
-
-    <div class="cv-container">
-
-        <!-- HEADER -->
-        <div class="header">
-            <h1>CURRICULUM VITAE</h1>
-
-            <!-- Ganti foto-cv.jpg dengan foto pribadi -->
-            <img src="foto-cv.jpg"
-                 alt="Foto Profil"
-                 class="profile-photo">
-        </div>
-
-
-        <!-- DATA PRIBADI -->
-        <section class="section">
-            <h2 class="section-title">Data Pribadi</h2>
-            <div class="line"></div>
-
-            <div class="data">
-                <span class="label">Nama</span>
-                <span class="colon">:</span>
-                <span>Indra Febri Suseno</span>
-            </div>
-
-            <div class="data">
-                <span class="label">Tempat, Tanggal Lahir</span>
-                <span class="colon">:</span>
-                <span>Air Batu, 09 Februari 1991</span>
-            </div>
-
-            <div class="data">
-                <span class="label">Jenis Kelamin</span>
-                <span class="colon">:</span>
-                <span>Laki-Laki</span>
-            </div>
-
-            <div class="data">
-                <span class="label">Agama</span>
-                <span class="colon">:</span>
-                <span>Islam</span>
-            </div>
-
-            <div class="data">
-                <span class="label">Tinggi Badan</span>
-                <span class="colon">:</span>
-                <span>170 Cm</span>
-            </div>
-
-            <div class="data">
-                <span class="label">Berat Badan</span>
-                <span class="colon">:</span>
-                <span>60 Kg</span>
-            </div>
-
-            <div class="data">
-                <span class="label">Alamat</span>
-                <span class="colon">:</span>
-                <span>Jalan Rawang Timur Iv B/4, Kel. Rawang Timur, Kec. Padang Selatan</span>
-            </div>
-
-            <div class="data">
-                <span class="label">Handphone</span>
-                <span class="colon">:</span>
-                <span>085263839596</span>
-            </div>
-
-            <div class="data">
-                <span class="label">Status</span>
-                <span class="colon">:</span>
-                <span>Belum Menikah</span>
-            </div>
-
-            <div class="data">
-                <span class="label">E-Mail</span>
-                <span class="colon">:</span>
-                <span>indrafebrisuseno@yahoo.com</span>
-            </div>
-        </section>
-
-
-        <!-- DATA PENDIDIKAN -->
-        <section class="section">
-            <h2 class="section-title">Data Pendidikan</h2>
-            <div class="line"></div>
-
-            <div class="education">
-                <span>Sekolah Dasar</span>
-                <span>:</span>
-                <span>SDN 17 Pasar Sungai Tunu (1997 - 2003)</span>
-            </div>
-
-            <div class="education">
-                <span>SMP</span>
-                <span>:</span>
-                <span>SMPN 1 Balai Selasa (2003 - 2006)</span>
-            </div>
-
-            <div class="education">
-                <span>SMA</span>
-                <span>:</span>
-                <span>SMAN 1 Balai Selasa (2006 - 2009)</span>
-            </div>
-
-            <div class="education">
-                <span>Perguruan Tinggi</span>
-                <span>:</span>
-                <span>
-                    UNIVERSITAS PUTRA INDONESIA "YPTK" Padang
-                    (2009 - 2013)
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card shadow-sm border-b border-brown-100 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-tight text-dark-900 flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-lg bg-brown-700 text-white flex items-center justify-center text-sm shadow-md">
+                    <i class="fa-solid fa-graduation-cap"></i>
                 </span>
-            </div>
-        </section>
+                <span>Portofolio<span class="text-brown-600 font-serif italic">.SMK</span></span>
+            </a>
 
-
-        <!-- KEMAMPUAN -->
-        <section class="section">
-            <h2 class="section-title">Kemampuan</h2>
-            <div class="line"></div>
-
-            <div class="skills">
-                <span>Informasi Teknologi</span>
-                <span>:</span>
-                <span>Bisa Office, Myob, Visual Basic dan Online</span>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-dark-700">
+                <a href="#about" class="hover:text-brown-600 transition">Tentang</a>
+                <a href="#skills" class="hover:text-brown-600 transition">Keahlian</a>
+                <a href="#projects" class="hover:text-brown-600 transition">Proyek & Karya</a>
+                <a href="#experience" class="hover:text-brown-600 transition">Pengalaman</a>
+                <a href="#contact" class="hover:text-brown-600 transition">Kontak</a>
             </div>
 
-            <div class="skills">
-                <span>Bahasa</span>
-                <span>:</span>
-                <span>Bahasa Indonesia (Aktif), English (Pasif)</span>
+            <!-- Mobile Button & Action CTA -->
+            <div class="flex items-center gap-3">
+                <!-- Ganti cv-kamu.pdf dengan lokasi file PDF CV kamu -->
+                <a href="cv-kamu.pdf" download="CV_Pelajar_SMK.pdf" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-brown-300 bg-brown-50 hover:bg-brown-100 text-brown-900 text-xs font-semibold transition duration-200 shadow-sm">
+                    <i class="fa-solid fa-file-arrow-down text-brown-700"></i> Unduh CV
+                </a>
+                <a href="#contact" class="hidden sm:inline-flex items-center px-4 py-2 rounded-xl bg-dark-900 text-white text-xs font-semibold hover:bg-brown-700 transition duration-200 shadow-md">
+                    Rekrut Saya
+                </a>
+                <button id="menuBtn" class="md:hidden p-2 text-dark-900 focus:outline-none" aria-label="Toggle Menu">
+                    <i id="menuIcon" class="fa-solid fa-bars text-xl transition-all duration-300 transform inline-block"></i>
+                </button>
             </div>
-        </section>
-
-
-        <!-- PENGALAMAN -->
-        <section class="section">
-            <h2 class="section-title">Pengalaman</h2>
-            <div class="line"></div>
-
-            <div class="experience">
-                Fresh Graduate
-            </div>
-        </section>
-
-
-        <div class="footer">
-            Curriculum Vitae
         </div>
 
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="md:hidden px-6 bg-white/95 backdrop-blur-md border-b border-brown-200 divide-y divide-brown-100/80">
+            <a href="#about" class="menu-item flex items-center gap-3 text-sm font-medium py-3 hover:text-brown-600 transition-colors">
+                <i class="fa-solid fa-user text-dark-900 w-5 text-center"></i>
+                <span>Tentang</span>
+            </a>
+            <a href="#skills" class="menu-item flex items-center gap-3 text-sm font-medium py-3 hover:text-brown-600 transition-colors">
+                <i class="fa-solid fa-laptop-code text-dark-900 w-5 text-center"></i>
+                <span>Keahlian</span>
+            </a>
+            <a href="#projects" class="menu-item flex items-center gap-3 text-sm font-medium py-3 hover:text-brown-600 transition-colors">
+                <i class="fa-solid fa-folder-open text-dark-900 w-5 text-center"></i>
+                <span>Proyek & Karya</span>
+            </a>
+            <a href="#experience" class="menu-item flex items-center gap-3 text-sm font-medium py-3 hover:text-brown-600 transition-colors">
+                <i class="fa-solid fa-briefcase text-dark-900 w-5 text-center"></i>
+                <span>Pengalaman</span>
+            </a>
+            <a href="#contact" class="menu-item flex items-center gap-3 text-sm font-medium py-3 hover:text-brown-600 transition-colors">
+                <i class="fa-solid fa-paper-plane text-dark-900 w-5 text-center"></i>
+                <span>Kontak</span>
+            </a>
+
+            <div class="menu-item pt-3 pb-1 flex flex-col gap-2">
+                <!-- Ganti link cv-kamu.pdf dengan file CV kamu -->
+                <a href="cv-kamu.pdf" download="CV_Pelajar_SMK.pdf" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-brown-300 bg-brown-50 hover:bg-brown-100 text-brown-900 text-xs font-semibold transition duration-200 shadow-sm">
+                    <i class="fa-solid fa-file-arrow-down text-brown-700"></i> Unduh CV (PDF)
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center pt-28 pb-16 px-6 relative overflow-hidden">
+        <!-- Background Ornaments -->
+        <div class="absolute top-1/4 left-5 w-80 h-80 bg-brown-200/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-5 w-96 h-96 bg-brown-300/30 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-brown-100 text-brown-800 border border-brown-200">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brown-500 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-brown-600"></span>
+                    </span>
+                    Siswa Aktif SMK Negeri 1 Indonesia
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-dark-900">
+                    Halo, Saya <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brown-700 via-brown-600 to-brown-500 font-serif italic">
+                        [Nama Lengkap Kamu]
+                    </span>
+                </h1>
+                <p class="text-base sm:text-lg text-stone-600 leading-relaxed max-w-xl">
+                    Siswa SMK Jurusan <strong class="text-dark-900 font-semibold">[Rekayasa Perangkat Lunak / DKV / TKJ]</strong> yang berfokus pada pengembangan solusi kreatif, berdedikasi tinggi, dan siap berkontribusi dalam dunia industri melalui Praktik Kerja Lapangan (PKL) maupun kerja profesional.
+                </p>
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="#contact" class="px-6 py-3.5 rounded-xl bg-brown-700 hover:bg-brown-800 text-white font-medium shadow-lg shadow-brown-700/20 transition duration-200">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Hubungi Saya
+                    </a>
+                    <a href="#projects" class="px-6 py-3.5 rounded-xl bg-white text-dark-900 font-medium border border-brown-200 hover:border-brown-600 hover:bg-brown-50 transition duration-200 shadow-sm">
+                        <i class="fa-solid fa-folder-open mr-2 text-brown-600"></i> Lihat Karya
+                    </a>
+                </div>
+                
+                <!-- Social Media Direct Links -->
+                <div class="flex items-center gap-5 pt-4 text-stone-500">
+                    <!-- Ganti username_kamu dengan username LinkedIn kamu -->
+                    <a href="https://linkedin.com/in/username_kamu" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white border border-brown-200 flex items-center justify-center hover:bg-brown-700 hover:text-white hover:border-brown-700 transition duration-200 text-dark-900" title="LinkedIn" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <!-- Ganti username_kamu dengan username GitHub/Behance kamu -->
+                    <a href="https://github.com/username_kamu" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white border border-brown-200 flex items-center justify-center hover:bg-brown-700 hover:text-white hover:border-brown-700 transition duration-200 text-dark-900" title="GitHub" aria-label="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <!-- Ganti username_kamu dengan username Instagram kamu -->
+                    <a href="https://instagram.com/username_kamu" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white border border-brown-200 flex items-center justify-center hover:bg-brown-700 hover:text-white hover:border-brown-700 transition duration-200 text-dark-900" title="Instagram" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <!-- Ganti 6281234567890 dengan nomor WA kamu (dimulai dengan 62) -->
+                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20portofolio%20Anda" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white border border-brown-200 flex items-center justify-center hover:bg-brown-700 hover:text-white hover:border-brown-700 transition duration-200 text-dark-900" title="WhatsApp" aria-label="WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Photo Container -->
+            <div class="md:col-span-5 flex justify-center">
+                <div class="relative group">
+                    <div class="absolute -inset-2 bg-gradient-to-tr from-brown-600 to-dark-900 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative w-64 h-80 sm:w-72 sm:h-96 rounded-3xl overflow-hidden shadow-2xl bg-brown-100 border-4 border-white flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="Foto Profil" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-white border-y border-brown-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brown-600">Profil Singkat</span>
+                <h2 class="text-3xl font-bold tracking-tight text-dark-900 mt-1">Tentang Saya</h2>
+                <div class="w-12 h-1 bg-brown-600 mx-auto mt-3 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-brown-50/50 border border-brown-200 space-y-3 hover:shadow-lg transition duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-brown-700 text-white flex items-center justify-center text-xl shadow-md">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-dark-900">Pendidikan</h3>
+                    <p class="text-sm text-stone-600 leading-relaxed">
+                        <strong class="text-dark-900">SMK Negeri 1 Kota</strong><br/>
+                        Konsentrasi Keahlian: Rekayasa Perangkat Lunak<br/>
+                        <span class="text-xs text-brown-600 font-semibold">Tahun Masuk: 2023 - Sekarang</span>
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-brown-50/50 border border-brown-200 space-y-3 hover:shadow-lg transition duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-dark-900 text-white flex items-center justify-center text-xl shadow-md">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-dark-900">Fokus Utama</h3>
+                    <p class="text-sm text-stone-600 leading-relaxed">
+                        Tertarik pada pemecahan masalah praktis, disiplin dalam memenuhi kriteria tugas industri, dan selalu memperbarui wawasan teknologi terkini.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-brown-50/50 border border-brown-200 space-y-3 hover:shadow-lg transition duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-brown-600 text-white flex items-center justify-center text-xl shadow-md">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-dark-900">Nilai & Etika</h3>
+                    <p class="text-sm text-stone-600 leading-relaxed">
+                        Memiliki etos kerja tinggi, mampu bekerja secara mandiri maupun dalam tim, serta komunikasi yang santun dan adaptif.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brown-600">Kompetensi</span>
+                <h2 class="text-3xl font-bold tracking-tight text-dark-900 mt-1">Keahlian (Skills)</h2>
+                <p class="text-stone-500 mt-2 text-sm">Kombinasi kemampuan teknis dan soft skill yang dikembangkan selama di sekolah.</p>
+                <div class="w-12 h-1 bg-brown-600 mx-auto mt-3 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Hard Skills / Skills Teknis -->
+                <div class="p-8 rounded-2xl bg-white border border-brown-200 shadow-sm space-y-6">
+                    <h3 class="text-xl font-bold flex items-center gap-3 text-dark-900">
+                        <span class="w-9 h-9 rounded-lg bg-brown-100 text-brown-700 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-code"></i>
+                        </span>
+                        Hard Skills / Teknis
+                    </h3>
+
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-1.5">
+                                <span class="text-dark-900">HTML, CSS & Tailwind CSS</span>
+                                <span class="text-brown-700 font-bold">85%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-brown-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-brown-700 to-brown-500 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-1.5">
+                                <span>JavaScript / UI Design</span>
+                                <span class="text-brown-700 font-bold">75%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-brown-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-brown-700 to-brown-500 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-1.5">
+                                <span>Pengolahan Data / Software Keahlian</span>
+                                <span class="text-brown-700 font-bold">80%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-brown-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-brown-700 to-brown-500 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills & Software Tools -->
+                <div class="p-8 rounded-2xl bg-white border border-brown-200 shadow-sm space-y-6">
+                    <h3 class="text-xl font-bold flex items-center gap-3 text-dark-900">
+                        <span class="w-9 h-9 rounded-lg bg-brown-100 text-brown-700 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-toolbox"></i>
+                        </span>
+                        Tools & Soft Skills
+                    </h3>
+
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-2 rounded-xl bg-brown-50 border border-brown-200 text-xs font-bold text-dark-900">VS Code / Figma</span>
+                        <span class="px-4 py-2 rounded-xl bg-brown-50 border border-brown-200 text-xs font-bold text-dark-900">Git & GitHub</span>
+                        <span class="px-4 py-2 rounded-xl bg-brown-50 border border-brown-200 text-xs font-bold text-dark-900">Microsoft Office</span>
+                        <span class="px-4 py-2 rounded-xl bg-brown-50 border border-brown-200 text-xs font-bold text-dark-900">Kerjasama Tim</span>
+                        <span class="px-4 py-2 rounded-xl bg-brown-50 border border-brown-200 text-xs font-bold text-dark-900">Manajemen Waktu</span>
+                        <span class="px-4 py-2 rounded-xl bg-brown-50 border border-brown-200 text-xs font-bold text-dark-900">Problem Solving</span>
+                        <span class="px-4 py-2 rounded-xl bg-brown-50 border border-brown-200 text-xs font-bold text-dark-900">Komunikasi Efektif</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-6 bg-white border-y border-brown-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brown-600">Portofolio</span>
+                <h2 class="text-3xl font-bold tracking-tight text-dark-900 mt-1">Proyek & Hasil Karya</h2>
+                <p class="text-stone-500 mt-2 text-sm">Beberapa contoh tugas akhir, karya mandiri, atau proyek sekolah yang pernah saya buat.</p>
+                <div class="w-12 h-1 bg-brown-600 mx-auto mt-3 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div onclick="openProjectModal(0)" class="rounded-2xl overflow-hidden bg-white border border-brown-200 shadow-sm group hover:-translate-y-1.5 hover:shadow-xl transition duration-300 cursor-pointer">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=600" alt="Project 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-xs font-bold text-brown-600 uppercase tracking-wider">Tugas Uji Kompetensi</span>
+                        <h3 class="text-lg font-bold text-dark-900 group-hover:text-brown-700 transition">Aplikasi Kasir / Profil Usaha</h3>
+                        <p class="text-sm text-stone-600 line-clamp-2 leading-relaxed">
+                            Aplikasi manajemen transaksi berbasis web sederhana dengan fitur inventarisasi barang dan cetak struk.
+                        </p>
+                        <div class="pt-2 flex items-center justify-between border-t border-brown-100">
+                            <span class="text-xs font-medium text-stone-400">HTML, Tailwind, JS</span>
+                            <button class="text-sm font-semibold text-brown-700 hover:text-brown-900 flex items-center gap-1">Detail <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div onclick="openProjectModal(1)" class="rounded-2xl overflow-hidden bg-white border border-brown-200 shadow-sm group hover:-translate-y-1.5 hover:shadow-xl transition duration-300 cursor-pointer">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=600" alt="Project 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-xs font-bold text-brown-600 uppercase tracking-wider">Desain & Kreatif</span>
+                        <h3 class="text-lg font-bold text-dark-900 group-hover:text-brown-700 transition">Redesain UI/UX App Mobile</h3>
+                        <p class="text-sm text-stone-600 line-clamp-2 leading-relaxed">
+                            Rancangan antarmuka pengguna untuk aplikasi pembelajaran online siswa sekolah menengah.
+                        </p>
+                        <div class="pt-2 flex items-center justify-between border-t border-brown-100">
+                            <span class="text-xs font-medium text-stone-400">Figma, Prototype</span>
+                            <button class="text-sm font-semibold text-brown-700 hover:text-brown-900 flex items-center gap-1">Detail <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div onclick="openProjectModal(2)" class="rounded-2xl overflow-hidden bg-white border border-brown-200 shadow-sm group hover:-translate-y-1.5 hover:shadow-xl transition duration-300 cursor-pointer">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600" alt="Project 3" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-xs font-bold text-brown-600 uppercase tracking-wider">Praktikum Mandiri</span>
+                        <h3 class="text-lg font-bold text-dark-900 group-hover:text-brown-700 transition">Sistem Jaringan / Otomasi</h3>
+                        <p class="text-sm text-stone-600 line-clamp-2 leading-relaxed">
+                            Simulasi konfigurasi jaringan lokal (LAN/VLAN) dan dokumentasi pengujian keamanan.
+                        </p>
+                        <div class="pt-2 flex items-center justify-between border-t border-brown-100">
+                            <span class="text-xs font-medium text-stone-400">Cisco, Network Tech</span>
+                            <button class="text-sm font-semibold text-brown-700 hover:text-brown-900 flex items-center gap-1">Detail <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience / PKL Section -->
+    <section id="experience" class="py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brown-600">Jejak Langkah</span>
+                <h2 class="text-3xl font-bold tracking-tight text-dark-900 mt-1">Pengalaman & Organisasi</h2>
+                <div class="w-12 h-1 bg-brown-600 mx-auto mt-3 rounded-full"></div>
+            </div>
+
+            <div class="relative border-l-2 border-brown-200 ml-4 md:ml-32 space-y-10">
+                <!-- Timeline Item 1 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brown-700 border-4 border-warm-pattern"></div>
+                    <div class="md:absolute md:-left-36 md:top-1 text-xs font-bold text-brown-600 uppercase tracking-wider mb-2 md:mb-0">
+                        Jan - Apr 2025
+                    </div>
+                    <div class="p-6 rounded-2xl bg-white border border-brown-200 shadow-sm">
+                        <h3 class="text-lg font-bold text-dark-900">Praktik Kerja Lapangan (PKL)</h3>
+                        <p class="text-sm font-semibold text-brown-700 mb-2">PT Mitra Teknologi Indonesia</p>
+                        <ul class="text-sm text-stone-600 list-disc list-inside space-y-1.5 leading-relaxed">
+                            <li>Membantu tim IT/Operasional dalam maintenance harian.</li>
+                            <li>Menyusun laporan administrasi dan input data teknis.</li>
+                            <li>Berkolaborasi dalam pengerjaan proyek kecil perusahaan.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-dark-900 border-4 border-warm-pattern"></div>
+                    <div class="md:absolute md:-left-36 md:top-1 text-xs font-bold text-stone-400 uppercase tracking-wider mb-2 md:mb-0">
+                        2023 - 2024
+                    </div>
+                    <div class="p-6 rounded-2xl bg-white border border-brown-200 shadow-sm">
+                        <h3 class="text-lg font-bold text-dark-900">Pengurus Ekstrakurikuler / OSIS</h3>
+                        <p class="text-sm font-semibold text-brown-700 mb-2">SMK Negeri 1 Kota</p>
+                        <p class="text-sm text-stone-600 leading-relaxed">
+                            Bertanggung jawab sebagai koordinator publikasi dan dokumentasi acara sekolah, memimpin kepanitiaan dalam kegiatan peringatan hari besar.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 bg-white border-t border-brown-100">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brown-600">Hubungi</span>
+                <h2 class="text-3xl font-bold tracking-tight text-dark-900 mt-1">Mari Berkomunikasi</h2>
+                <p class="text-stone-500 mt-2 text-sm">Tertarik bekerjasama atau ingin berdiskusi seputar peluang PKL & Pekerjaan?</p>
+                <div class="w-12 h-1 bg-brown-600 mx-auto mt-3 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-dark-900">Informasi Kontak</h3>
+                    <p class="text-sm text-stone-600 leading-relaxed">
+                        Saya terbuka untuk tawaran Magang/PKL, kesempatan kerja *entry-level*, atau proyek lepas.
+                    </p>
+
+                    <div class="space-y-4">
+                        <!-- Direct Link Email -->
+                        <a href="mailto:namamu@email.com" class="flex items-center gap-4 p-3 rounded-xl bg-brown-50 border border-brown-100 hover:border-brown-300 transition duration-200 group">
+                            <div class="w-10 h-10 rounded-lg bg-brown-700 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-stone-500 font-medium">Email</p>
+                                <p class="text-sm font-bold text-dark-900 group-hover:text-brown-700 transition">namamu@email.com</p>
+                            </div>
+                        </a>
+
+                        <!-- Direct Link WhatsApp -->
+                        <a href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20portofolio%20Anda" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3 rounded-xl bg-brown-50 border border-brown-100 hover:border-brown-300 transition duration-200 group">
+                            <div class="w-10 h-10 rounded-lg bg-dark-900 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-stone-500 font-medium">WhatsApp</p>
+                                <p class="text-sm font-bold text-dark-900 group-hover:text-brown-700 transition">+62 812-3456-7890</p>
+                            </div>
+                        </a>
+
+                        <div class="flex items-center gap-4 p-3 rounded-xl bg-brown-50 border border-brown-100">
+                            <div class="w-10 h-10 rounded-lg bg-brown-600 text-white flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-stone-500 font-medium">Lokasi</p>
+                                <p class="text-sm font-bold text-dark-900">Kota Bandung, Jawa Barat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Kontak Sederhana -->
+                <form id="contactForm" class="p-8 rounded-2xl bg-brown-50/60 border border-brown-200 space-y-4 shadow-sm">
+                    <div>
+                        <label class="block text-xs font-bold mb-1.5 text-dark-900">Nama Lengkap</label>
+                        <input type="text" required placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl border border-brown-200 bg-white text-sm text-dark-900 focus:outline-none focus:ring-2 focus:ring-brown-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold mb-1.5 text-dark-900">Email / Kontak</label>
+                        <input type="email" required placeholder="alamat@email.com" class="w-full px-4 py-3 rounded-xl border border-brown-200 bg-white text-sm text-dark-900 focus:outline-none focus:ring-2 focus:ring-brown-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold mb-1.5 text-dark-900">Pesan</label>
+                        <textarea rows="4" required placeholder="Tuliskan pesan kamu di sini..." class="w-full px-4 py-3 rounded-xl border border-brown-200 bg-white text-sm text-dark-900 focus:outline-none focus:ring-2 focus:ring-brown-600"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-dark-900 hover:bg-brown-700 text-white text-sm font-semibold transition duration-200 shadow-md">
+                        Kirim Pesan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Detail Pop-up Modal -->
+    <div id="projectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-dark-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+        <div id="projectModalCard" class="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-brown-200 overflow-hidden transform scale-95 transition-all duration-300 max-h-[90vh] flex flex-col">
+            <!-- Modal Header / Gambar -->
+            <div class="relative h-56 sm:h-64 bg-brown-100 overflow-hidden shrink-0">
+                <img id="modalImg" src="" alt="Detail Proyek" class="w-full h-full object-cover">
+                <button onclick="closeProjectModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-dark-900/70 hover:bg-dark-900 text-white flex items-center justify-center transition shadow-md backdrop-blur-sm" aria-label="Tutup Detail">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="absolute bottom-4 left-4">
+                    <span id="modalCategory" class="px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-brown-700 backdrop-blur-sm shadow-sm"></span>
+                </div>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-4">
+                <h3 id="modalTitle" class="text-2xl font-bold text-dark-900"></h3>
+                <p id="modalDesc" class="text-stone-600 text-sm leading-relaxed"></p>
+                
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-brown-600 mb-2">Teknologi & Tools</h4>
+                    <div id="modalTech" class="flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-5 bg-brown-50/70 border-t border-brown-100 flex items-center justify-end shrink-0">
+                <button onclick="closeProjectModal()" class="px-6 py-2.5 rounded-xl bg-dark-900 hover:bg-brown-700 text-white text-xs font-semibold transition shadow-md">
+                    Tutup
+                </button>
+            </div>
+        </div>
     </div>
 
+    <!-- Notification Toast Modal -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 hidden z-50 p-4 rounded-xl bg-dark-900 text-white border border-brown-400 shadow-2xl transition duration-300">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-circle-check text-brown-400 text-lg"></i>
+            <span class="text-sm font-medium">Pesan kamu berhasil terkirim!</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-10 bg-dark-900 text-stone-400 text-center text-xs">
+        <div class="max-w-6xl mx-auto px-6 space-y-4">
+            <p class="font-semibold text-white">Portofolio Pelajar SMK — Tema Klasik & Elegan</p>
+            <p>© 2026 Seluruh hak cipta dilindungi. Dibuat dengan semangat belajar.</p>
+        </div>
+    </footer>
+
+    <!-- Script for Navigation, Form Interaction & Project Modal -->
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const menuIcon = document.getElementById('menuIcon');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const contactForm = document.getElementById('contactForm');
+        const toastNotification = document.getElementById('toastNotification');
+
+        // Data Proyek Lengkap untuk Pop-up Detail
+        const projectData = [
+            {
+                title: 'Aplikasi Kasir / Profil Usaha',
+                category: 'Tugas Uji Kompetensi',
+                image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=600',
+                desc: 'Aplikasi manajemen transaksi berbasis web sederhana dengan fitur inventarisasi barang, pencetakan struk, laporan penjualan harian, serta antarmuka yang ramah pengguna. Dibuat khusus untuk memenuhi kriteria Uji Kompetensi Keahlian (UKK) SMK.',
+                tech: ['HTML5', 'Tailwind CSS', 'JavaScript', 'LocalStorage'],
+                link: 'https://github.com/username_kamu'
+            },
+            {
+                title: 'Redesain UI/UX App Mobile',
+                category: 'Desain & Kreatif',
+                image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=600',
+                desc: 'Rancangan antarmuka pengguna (UI/UX) untuk aplikasi pembelajaran online siswa sekolah menengah. Meliputi riset pengguna (user research), wireframing, pembuatan design system warna & tipografi, hingga prototipe interaktif.',
+                tech: ['Figma', 'Wireframing', 'UI/UX Research', 'Prototyping'],
+                link: 'https://figma.com'
+            },
+            {
+                title: 'Sistem Jaringan / Otomasi',
+                category: 'Praktikum Mandiri',
+                image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600',
+                desc: 'Simulasi konfigurasi jaringan lokal (LAN/VLAN) dengan tingkat keamanan terpantau, pengujian router Mikrotik, serta penyusunan dokumentasi pengujian performa latency dan throughput jaringan sekolah.',
+                tech: ['Cisco Packet Tracer', 'Mikrotik', 'Network Security', 'VLAN'],
+                link: 'https://github.com/username_kamu'
+            }
+        ];
+
+        const projectModal = document.getElementById('projectModal');
+        const projectModalCard = document.getElementById('projectModalCard');
+        const modalImg = document.getElementById('modalImg');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalTech = document.getElementById('modalTech');
+
+        function openProjectModal(index) {
+            const data = projectData[index];
+            if (!data) return;
+
+            modalImg.src = data.image;
+            modalCategory.textContent = data.category;
+            modalTitle.textContent = data.title;
+            modalDesc.textContent = data.desc;
+
+            modalTech.innerHTML = data.tech.map(t => 
+                `<span class="px-3 py-1 rounded-xl bg-brown-100 text-brown-800 text-xs font-semibold">${t}</span>`
+            ).join('');
+
+            projectModal.classList.remove('opacity-0', 'pointer-events-none');
+            projectModalCard.classList.remove('scale-95');
+            projectModalCard.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            projectModal.classList.add('opacity-0', 'pointer-events-none');
+            projectModalCard.classList.remove('scale-100');
+            projectModalCard.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        // Tutup modal saat mengklik area latar belakang (backdrop)
+        if (projectModal) {
+            projectModal.addEventListener('click', (e) => {
+                if (e.target === projectModal) {
+                    closeProjectModal();
+                }
+            });
+        }
+
+        // Animated Mobile Menu Toggle with Smooth Micro-interactions
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('active');
+                
+                // Smooth elastic rotation on toggle
+                menuIcon.classList.toggle('icon-rotated');
+                
+                // Switch icon graphic seamlessly at midpoint of rotation
+                setTimeout(() => {
+                    if (isOpen) {
+                        menuIcon.classList.remove('fa-bars');
+                        menuIcon.classList.add('fa-xmark');
+                    } else {
+                        menuIcon.classList.remove('fa-xmark');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }, 120);
+            });
+        }
+
+        // Auto close menu smoothly when clicking any menu link
+        if (mobileMenu) {
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    menuIcon.classList.remove('icon-rotated', 'fa-xmark');
+                    menuIcon.classList.add('fa-bars');
+                });
+            });
+        }
+
+        // Contact Form Submission Handler (Custom Modal / Toast)
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                toastNotification.classList.remove('hidden');
+                contactForm.reset();
+                setTimeout(() => {
+                    toastNotification.classList.add('hidden');
+                }, 3500);
+            });
+        }
+    </script>
 </body>
-</html>
+    </html>
